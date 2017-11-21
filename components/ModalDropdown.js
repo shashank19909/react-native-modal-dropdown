@@ -366,7 +366,7 @@ export default class ModalDropdown extends Component {
       });
     }
     if (!this.props.onDropdownWillHide ||
-      this.props.onDropdownWillHide() !== false) {
+      this.props.onDropdownWillHide(rowID, sectionID) !== false) {
       this.setState({
         showDropdown: false
       });

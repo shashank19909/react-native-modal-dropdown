@@ -44,6 +44,7 @@ export default class ModalDropdown extends Component {
     dropdownStyle: PropTypes.oneOfType([PropTypes.number, PropTypes.object, PropTypes.array]),
     dropdownTextStyle: PropTypes.oneOfType([PropTypes.number, PropTypes.object, PropTypes.array]),
     dropdownTextHighlightStyle: PropTypes.oneOfType([PropTypes.number, PropTypes.object, PropTypes.array]),
+    backgroundColor: PropTypes.string,
 
     adjustFrame: PropTypes.func,
     renderRow: PropTypes.func,
@@ -186,6 +187,7 @@ export default class ModalDropdown extends Component {
     if (this.state.showDropdown && this._buttonFrame) {
       let frameStyle = this._calcPosition();
       let animationType = this.props.animated ? 'fade' : 'none';
+      let backgroundColor = this.props.backgroundColor;
       return (
         <Modal animationType={animationType}
                visible={true}
@@ -195,7 +197,7 @@ export default class ModalDropdown extends Component {
           <TouchableWithoutFeedback accessible={this.props.accessible}
                                     disabled={!this.state.showDropdown}
                                     onPress={this._onModalPress.bind(this)}>
-            <View style={styles.modal}>
+            <View style={ backgroundColor ? [styles.modal, {backgroundColor: backgroundColor}] : styles.modal}>
               <View style={[styles.dropdown, this.props.dropdownStyle, frameStyle]}>
                 {this.state.loading ? this._renderLoading() : this._renderDropdown()}
               </View>
@@ -389,7 +391,7 @@ const styles = StyleSheet.create({
     fontSize: 12
   },
   modal: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   dropdown: {
     position: 'absolute',
